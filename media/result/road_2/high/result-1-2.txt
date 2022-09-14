@@ -1,0 +1,163 @@
+*** 2022-09-13 12:17:08 ***
+
+Traffic Status: High
+Number of cars: 20
+Flow density: 101% 
+Flow average speed: 16
+Highest flow is in lane number: 2
+---------------------
+
+Vehicle Number: 1
+Vehicle Type: car
+Lane Number: 0
+Speed: 0
+Positions: 
+    frame[1]: [37, 551]
+---------------------
+Vehicle Number: 2
+Vehicle Type: car
+Lane Number: 1
+Speed: 14.1421
+Positions: 
+    frame[1]: [168, 571]
+    frame[2]: [172, 543]
+---------------------
+Vehicle Number: 3
+Vehicle Type: car
+Lane Number: 1
+Speed: 1
+Positions: 
+    frame[1]: [214, 227]
+    frame[2]: [214, 225]
+---------------------
+Vehicle Number: 4
+Vehicle Type: motorcycle
+Lane Number: 1
+Speed: 0
+Positions: 
+    frame[1]: [226, 322]
+---------------------
+Vehicle Number: 5
+Vehicle Type: car
+Lane Number: 1
+Speed: 16.3783
+Positions: 
+    frame[1]: [171, 466]
+    frame[2]: [188, 438]
+---------------------
+Vehicle Number: 6
+Vehicle Type: car
+Lane Number: 1
+Speed: 0.5
+Positions: 
+    frame[1]: [231, 149]
+    frame[2]: [231, 148]
+---------------------
+Vehicle Number: 7
+Vehicle Type: car
+Lane Number: 1
+Speed: 0.5
+Positions: 
+    frame[1]: [199, 297]
+    frame[2]: [200, 297]
+---------------------
+Vehicle Number: 8
+Vehicle Type: motorcycle
+Lane Number: 2
+Speed: 0
+Positions: 
+    frame[1]: [309, 325]
+---------------------
+Vehicle Number: 9
+Vehicle Type: motorcycle
+Lane Number: 2
+Speed: 0
+Positions: 
+    frame[1]: [249, 182]
+---------------------
+Vehicle Number: 10
+Vehicle Type: car
+Lane Number: 2
+Speed: 10.5475
+Positions: 
+    frame[1]: [268, 178]
+    frame[2]: [266, 157]
+---------------------
+Vehicle Number: 11
+Vehicle Type: car
+Lane Number: 2
+Speed: 14.6373
+Positions: 
+    frame[1]: [277, 295]
+    frame[2]: [281, 266]
+---------------------
+Vehicle Number: 12
+Vehicle Type: car
+Lane Number: 2
+Speed: 4.03113
+Positions: 
+    frame[1]: [276, 136]
+    frame[2]: [277, 128]
+---------------------
+Vehicle Number: 13
+Vehicle Type: truck
+Lane Number: 2
+Speed: 78.748
+Positions: 
+    frame[1]: [275, 444]
+    frame[2]: [242, 290]
+---------------------
+Vehicle Number: 14
+Vehicle Type: motorcycle
+Lane Number: 2
+Speed: 15.3052
+Positions: 
+    frame[1]: [250, 204]
+    frame[2]: [274, 185]
+---------------------
+Vehicle Number: 15
+Vehicle Type: car
+Lane Number: 3
+Speed: 9.21954
+Positions: 
+    frame[1]: [319, 177]
+    frame[2]: [315, 159]
+---------------------
+Vehicle Number: 16
+Vehicle Type: car
+Lane Number: 3
+Speed: 14.6373
+Positions: 
+    frame[1]: [323, 225]
+    frame[2]: [319, 196]
+---------------------
+Vehicle Number: 17
+Vehicle Type: car
+Lane Number: 3
+Speed: 36.4177
+Positions: 
+    frame[1]: [363, 451]
+    frame[2]: [352, 379]
+---------------------
+Vehicle Number: 18
+Vehicle Type: car
+Lane Number: 3
+Speed: 0
+Positions: 
+    frame[1]: [382, 607]
+---------------------
+Vehicle Number: 19
+Vehicle Type: car
+Lane Number: 3
+Speed: 0
+Positions: 
+    frame[1]: [309, 131]
+---------------------
+Vehicle Number: 20
+Vehicle Type: car
+Lane Number: 3
+Speed: 17.6777
+Positions: 
+    frame[1]: [339, 324]
+    frame[2]: [334, 289]
+---------------------
