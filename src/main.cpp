@@ -27,12 +27,9 @@ int main(int argc, char** argv )
     // std::cout << "OpenCV version : " << CV_VERSION << std::endl;
     cv::Size image_size = {INPUT_WIDTH, INPUT_HEIGHT};
     Timer time, total_time;
-    float total_image_load_time = 0.0f;
-    float model_loading_time = 0.0f;
     float detection_time = 0.0f;
     float tracking_time = 0.0f;
     float estimation_time = 0.0f;
-    float saving_time = 0.0f;
     total_time.start();
     
 
@@ -44,6 +41,7 @@ int main(int argc, char** argv )
     vector_of_vehicles.reserve(50);
 
     //Detect all the vehicles:
+    time.start();
     if(MODEL == 1){
         YoloDetector detector;
         detector.predict(vector_of_vehicles, YOLO_CONFIG[0], YOLO_CONFIG[1], 
@@ -58,6 +56,7 @@ int main(int argc, char** argv )
         std::cout << "Incorrect MODEL code!\n " ;
         return -1;
     }
+    detection_time = time.stop();
 
     // Find Vehicles Trajectory:
     Lane lines(data_path + "lines.txt");
@@ -74,24 +73,15 @@ int main(int argc, char** argv )
     TrafficEstimator estimator;
     traffic = estimator.estimate(tracked_vehicles, lines, image_size);
     estimation_time = time.stop();
-    
-
-    // Write to result file:
-    time.start();
-    FileUtils::save(tracked_vehicles, traffic);
-    saving_time = time.stop();
-
 
     std::cout << "Computation Time for " << input_files.size() << " frames:\n";
-    std::cout << "    -Loading Image = " << std::fixed << std::setprecision(4)<< total_image_load_time << "s\n";
-    std::cout << "    -Loading Model = " << std::fixed << std::setprecision(4)<< model_loading_time << "s\n";
     std::cout << "    -Detection     = " << std::fixed << std::setprecision(4)<< detection_time << "s\n";
     std::cout << "    -Tracking      = " << std::fixed << std::setprecision(4)<< tracking_time << "s\n";
     std::cout << "    -Estimation    = " << std::fixed << std::setprecision(4)<< estimation_time << "s\n";
-    std::cout << "    -Saving        = " << std::fixed << std::setprecision(4)<< saving_time << "s\n";
     std::cout << "    -Total         = " << std::fixed << std::setprecision(4)<< total_time.stop() << "s\n";
 
-
+    // Write to result file:
+    FileUtils::save(tracked_vehicles, traffic);
     FileUtils::drawResultOnImage(input_files, lines, vector_of_vehicles, INPUT_WIDTH, INPUT_HEIGHT);
 
     return 0;
