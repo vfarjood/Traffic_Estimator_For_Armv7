@@ -41,15 +41,14 @@ int main(int argc, char** argv )
         YoloDetector detector;
         std::string classes_path = "../models/yolo/classes.txt";
         std::string model_path = "../models/yolo/yolov5n.onnx";
-        detector.loadModel(model_path, classes_path);
-        detector.predict(vector_of_vehicles, input_files, INPUT_WIDTH, INPUT_HEIGHT);
+        detector.predict(vector_of_vehicles, model_path, classes_path, input_files, INPUT_WIDTH, INPUT_HEIGHT);
     } else if(MODEL == 2){
         MobilenetDetector detector;
         std::string classes_path = "../models/mobilenet/classes.txt";
         std::string model_path = "../models/mobilenet/frozen_inference_graph.pb";
         std::string model_config = "../models/mobilenet/ssd_mobilenet_v2_coco_2018_03_29.pbtxt";
-        detector.loadModel(model_path, model_config, classes_path);
-        detector.predict(vector_of_vehicles, input_files, INPUT_WIDTH, INPUT_HEIGHT);
+        detector.predict(vector_of_vehicles, model_path, model_config, 
+                            classes_path, input_files, INPUT_WIDTH, INPUT_HEIGHT);
     } else {
         std::cout << "Incorrect MODEL code!\n " ;
         return -1;

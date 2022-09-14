@@ -1,23 +1,19 @@
 #include "MobilenetDetector.hpp"
 
-void MobilenetDetector::loadModel(const std::string& model_path,
-									const std::string& model_config,
-					 					const std::string& classes_path) {
-    
+void MobilenetDetector::predict(std::vector<std::vector<Centroid>>& vector_of_centeroids,
+                                    const std::string& model_path,
+                                        const std::string& model_config,
+                                            const std::string& classes_path,
+								                std::vector<std::string>& input_files, 
+										          const float INPUT_WIDTH, const float INPUT_HEIGHT){
     // load yolo neural network model:
-    model = cv::dnn::readNetFromTensorflow(model_path, model_config);
+    cv::dnn::Net model = cv::dnn::readNetFromTensorflow(model_path, model_config);
 
     // Load class names:
     classes.reserve(5);
     std::ifstream ifs(std::string(classes_path).c_str());
     std::string line;
     while (getline(ifs, line)) {classes.push_back(line);} 
-        
-}
-
-void MobilenetDetector::predict(std::vector<std::vector<Centroid>>& vector_of_centeroids,
-								    std::vector<std::string>& input_files, 
-										const float INPUT_WIDTH, const float INPUT_HEIGHT){
 
 	for (std::string const& file : input_files)
     {
