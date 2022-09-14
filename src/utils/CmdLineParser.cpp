@@ -5,7 +5,7 @@ CmdLineParser::CmdLineParser(int argc, char** argv)
 {
     this->keys_ =
         "{ input  i          | |      Image to process (absolute path to file)                          }"
-        "{ name   n          |yolo|   Model name [1:yolo, 2:mobilenet]                                  }"
+        "{ detector d       |yolo|   Model name [1:yolo, 2:mobilenet]                                   }"
         "{ model  m          | |      Model path contains trained weights.                              }"
         "{ config f          | |      Path to model's config parameters.                                }"
         "{ class  c          | |      Path to class file.                                               }"
@@ -14,10 +14,10 @@ CmdLineParser::CmdLineParser(int argc, char** argv)
         "{ thr t           | 0.5 |    Confidence threshold.                                             }"
         "{ nms n           | 0.5 |    Non-maximum suppression threshold.                                }"
 
-        "{ show s          |false|    show computation result on the terminal.                         }"
+        "{ show s          |false|    show computation result on the terminal.                          }"
 
         "{ logMode         |ENABLE|   Define log mode  <ENABLE, DISABLE>.                               }"
-        "{ logType         |ALL  |   Define log type  <FILE, CONSOLE, ALL>.                            }"
+        "{ logType         |ALL   |   Define log type  <FILE, CONSOLE, ALL>.                            }"
         "{ logLevel        |DEBUG |   Define log level <INFO, WARNING, ERROR, BUFFER, TRACE, DEBUG >.   }"
 
         "{ help  h           | |      Print help message.                                               }";

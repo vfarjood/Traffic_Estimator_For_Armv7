@@ -4,7 +4,7 @@
 Result TrafficEstimator::estimate(const std::vector<Centroid>& vehicles, const Lane& lines, const cv::Size& image_size){
 	
 	Result prediction;
-	
+
 	// Calculate average traffic flow speed:
     prediction.average_flow_speed = [&]() {
         float avg = 0;
