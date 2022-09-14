@@ -13,7 +13,7 @@ void FileUtils::save(std::vector<Centroid>& tracked_vehicles, const Result& resu
                 {return v1.lane_num < v2.lane_num;});
     Timer current;
     result_file << "*** "<< current.getCurrentTime() << " ***\n\n";
-    result_file << result.prediction;
+    result_file << "Traffic Status: " << result.prediction;
     result_file << "Number of cars: "  << tracked_vehicles.size() << "\n";
     result_file << "Flow density: "  << (int)result.density << "% \n";
     result_file << "Flow average speed: "  << (int)result.average_flow_speed << "\n";

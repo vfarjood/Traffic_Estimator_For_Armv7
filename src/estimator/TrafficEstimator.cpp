@@ -45,11 +45,11 @@ Result TrafficEstimator::estimate(const std::vector<Centroid>& vehicles, const L
     cv::Mat inputMat(1, 3, CV_32F, input);
     float response = svm->predict(inputMat);
     if (response == 1)
-        result << "Traffic Status: "  << "Low" << "\n";
+        result << "Low";
     else if (response == 2)
-        result << "Traffic Status: "  << "Medium" << "\n";
+        result << "Medium";
     else if (response == 3)
-        result << "Traffic Status: "  << "High" << "\n";
+        result << "High";
     prediction.prediction = result.str();
 
     return prediction;

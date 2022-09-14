@@ -1,0 +1,65 @@
+#include "CmdLineParser.hpp"
+
+
+CmdLineParser::CmdLineParser(int argc, char** argv) 
+{
+    this->keys_ =
+        "{ input  i          | |      Image to process (absolute path to file)                          }"
+        "{ name   n          |yolo|   Model name [1:yolo, 2:mobilenet]                                  }"
+        "{ model  m          | |      Model path contains trained weights.                              }"
+        "{ config f          | |      Path to model's config parameters.                                }"
+        "{ class  c          | |      Path to class file.                                               }"
+        "{ path   l          | |      Path to save the result.                                          }"
+      
+        "{ thr t           | 0.5 |    Confidence threshold.                                             }"
+        "{ nms n           | 0.5 |    Non-maximum suppression threshold.                                }"
+
+        "{ show s          |false|    show computation result on the terminal.                         }"
+
+        "{ logMode         |ENABLE|   Define log mode  <ENABLE, DISABLE>.                               }"
+        "{ logType         |ALL  |   Define log type  <FILE, CONSOLE, ALL>.                            }"
+        "{ logLevel        |DEBUG |   Define log level <INFO, WARNING, ERROR, BUFFER, TRACE, DEBUG >.   }"
+
+        "{ help  h           | |      Print help message.                                               }";
+
+    this->parser_ = std::make_unique<cv::CommandLineParser>(argc, argv, keys_);
+    this->argc_ = argc;
+    this->argv_ = argv;
+    
+    this->parser_->about("Use this script to run Traffic Estimator application using deep learning. ");
+    if (this->parser_->has("help"))
+    {
+        this->parser_->printMessage();
+        this->printExample();
+        exit(0);
+    }
+}
+Parameters CmdLineParser::getParameters(){
+    Parameters param;
+    if(parser_->get<std::string>("name") != "")
+        param.model_name  = parser_->get<std::string>("name");
+    if(parser_->get<std::string>("model") != "")
+        param.yolo_model  = parser_->get<std::string>("model");
+    if(parser_->get<std::string>("class") != "")
+        param.yolo_class  = parser_->get<std::string>("class");
+    if(parser_->get<std::string>("model") != "")
+        param.mobilenet_model  = parser_->get<std::string>("model");
+    if(parser_->get<std::string>("config") != "")
+        param.mobilenet_config  = parser_->get<std::string>("config");
+    if(parser_->get<std::string>("class") != "")
+        param.mobilenet_class  = parser_->get<std::string>("class");
+    if(parser_->get<std::string>("input") != "")
+        param.data_path  = parser_->get<std::string>("input");
+
+    return param;
+}
+
+void CmdLineParser::printExample() 
+{
+    std::cout << "Example: \n\t"
+                   "./app "
+                   " --input=../media/traffic/road_1/ "
+                   " --name=yolo"
+                   " --model=../models/yolo/yolov5n.onnx\n" << std::endl;
+}
+
