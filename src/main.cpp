@@ -12,6 +12,13 @@
 #include "estimator/TrafficEstimator.hpp"
 
 constexpr int MODEL = 1; // YOLOv5 = 1; MobileNet_SSDv2 = 2
+std::string YOLO_CONFIG[2] = { "../models/yolo/yolov5n.onnx",
+                                 "../models/yolo/classes.txt"};
+
+std::string MOBILENET_CONFIG[3] = {"../models/mobilenet/frozen_inference_graph.pb",
+                                     "../models/mobilenet/ssd_mobilenet_v2_coco_2018_03_29.pbtxt",
+                                        "../models/mobilenet/classes.txt"};
+
 constexpr int INPUT_WIDTH = 640;
 constexpr int INPUT_HEIGHT = 640;
 
@@ -39,17 +46,15 @@ int main(int argc, char** argv )
     //Detect all the vehicles:
     if(MODEL == 1){
         YoloDetector detector;
-        std::string classes_path = "../models/yolo/classes.txt";
-        std::string model_path = "../models/yolo/yolov5n.onnx";
-        detector.predict(vector_of_vehicles, model_path, classes_path, input_files, INPUT_WIDTH, INPUT_HEIGHT);
-    } else if(MODEL == 2){
+        detector.predict(vector_of_vehicles, YOLO_CONFIG[0], YOLO_CONFIG[1], 
+                            input_files, INPUT_WIDTH, INPUT_HEIGHT);
+    } 
+    else if(MODEL == 2){
         MobilenetDetector detector;
-        std::string classes_path = "../models/mobilenet/classes.txt";
-        std::string model_path = "../models/mobilenet/frozen_inference_graph.pb";
-        std::string model_config = "../models/mobilenet/ssd_mobilenet_v2_coco_2018_03_29.pbtxt";
-        detector.predict(vector_of_vehicles, model_path, model_config, 
-                            classes_path, input_files, INPUT_WIDTH, INPUT_HEIGHT);
-    } else {
+        detector.predict(vector_of_vehicles, MOBILENET_CONFIG[0], MOBILENET_CONFIG[1], MOBILENET_CONFIG[2], 
+                            input_files, INPUT_WIDTH, INPUT_HEIGHT);
+    } 
+    else {
         std::cout << "Incorrect MODEL code!\n " ;
         return -1;
     }
