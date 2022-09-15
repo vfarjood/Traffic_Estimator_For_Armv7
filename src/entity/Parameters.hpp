@@ -11,6 +11,5 @@ struct Parameters {
     std::string mobilenet_class{"../models/mobilenet/classes.txt"};
 
     std::string data_path{"../media/dataset/road_1/low/"};
-    std::string img1{"img1.jpg"};
-    std::string img2{"img2.jpg"};
+    std::string images[2] = {"img1.jpg", "img2.jpg"};
 };

@@ -44,8 +44,8 @@ int main(int argc, char** argv )
     
     
     // load input image list:
-    std::vector<std::string> input_files= {(param.data_path + param.img1),
-                                           (param.data_path + param.img2)};
+    std::vector<std::string> input_files= {(param.data_path + param.images[0]),
+                                           (param.data_path + param.images[1])};
     // keep all detected vehicles in a vector for both images:
     std::vector<std::vector<Centroid>> vector_of_vehicles; 
     vector_of_vehicles.reserve(50);
@@ -54,6 +54,7 @@ int main(int argc, char** argv )
     Result traffic;
     Timer time;
     time.start();
+    LOG_INFO("Main:          Detecting vehicles:");
     if(param.model_name == "yolo"){
         LOG_INFO("Main:          YOLOv5n model is selected as object detector.");
         YoloDetector detector;
@@ -67,13 +68,13 @@ int main(int argc, char** argv )
                             input_files, INPUT_WIDTH, INPUT_HEIGHT);
     } 
     else {
-        LOG_ERROR("Main:    Incorrect Model name!");
+        LOG_ERROR("Main: Incorrect Model name!");
         return -1;
     }
     traffic.detection_time = time.stop();
 
     // Find Vehicles Trajectory:
-    LOG_INFO("Main:          Tracking the vehicles:");
+    LOG_INFO("Main: Tracking vehicles:");
     Lane lines(param.data_path + "../lines.txt");
     time.start();
     std::vector<Centroid> tracked_vehicles;
@@ -81,27 +82,26 @@ int main(int argc, char** argv )
     VehicleTracker tracker;
     tracker.track(vector_of_vehicles, tracked_vehicles, lines, image_size);
     traffic.tracking_time = time.stop();
-    LOG_TRACE("Main:          Tracked number of vehicle: ", tracked_vehicles.size() );
-
     
 
     // Traffic estimation:
-    LOG_INFO("Main:          Estimating the traffic:");
+    LOG_INFO("Main: Estimating traffic:");
     time.start();
     TrafficEstimator estimator;
     traffic = estimator.estimate(tracked_vehicles, lines, image_size);
     traffic.estimation_time = time.stop();
-    LOG_TRACE("Main:          Estimated Traffic is: ", traffic.prediction );
+    LOG_TRACE("Main: Estimated Traffic is: ", traffic.prediction );
+
+    // Write to result file:
+    FileUtils::save(tracked_vehicles, traffic);
+    FileUtils::drawResultOnImage(input_files, lines, vector_of_vehicles, param.images, INPUT_WIDTH, INPUT_HEIGHT);
+    LOG_TRACE("Main: Result is saved: ", "'result/result.txt'" );
 
     std::cout << "Computation Time for " << input_files.size() << " frames:\n";
     std::cout << "    -Detection     = " << std::fixed << std::setprecision(4)<< traffic.detection_time << "s\n";
     std::cout << "    -Tracking      = " << std::fixed << std::setprecision(4)<< traffic.tracking_time << "s\n";
     std::cout << "    -Estimation    = " << std::fixed << std::setprecision(4)<< traffic.estimation_time << "s\n";
     std::cout << "    -Total         = " << std::fixed << std::setprecision(4)<< total_time.stop() << "s\n";
-
-    // Write to result file:
-    FileUtils::save(tracked_vehicles, traffic, param.data_path);
-    FileUtils::drawResultOnImage(input_files, lines, vector_of_vehicles, param.data_path, INPUT_WIDTH, INPUT_HEIGHT);
-
+    
     return 0;
 }

@@ -16,9 +16,9 @@
 
 class FileUtils {
 public:
-   static void save(std::vector<Centroid>& tracked_vehicles, const Result& result, const std::string& data_path);
+   static void save(std::vector<Centroid>& tracked_vehicles, const Result& result);
    static void drawResultOnImage(std::vector<std::string>& input_files, Lane& lines,
                                     std::vector<std::vector<Centroid>>& vector_of_centeroids, 
-                                       const std::string& data_path,
+                                       const std::string images[],
                                           const float INPUT_WIDTH, const float INPUT_HEIGHT);
 };

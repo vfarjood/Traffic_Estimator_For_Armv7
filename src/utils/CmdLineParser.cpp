@@ -53,9 +53,9 @@ Parameters CmdLineParser::getParameters(){
     if(parser_->get<std::string>("input") != "")
         param.data_path  = parser_->get<std::string>("input");
     if(parser_->get<std::string>("img1") != "")
-        param.img1  = parser_->get<std::string>("img1");
+        param.images[0]  = parser_->get<std::string>("img1");
     if(parser_->get<std::string>("img2") != "")
-        param.img2  = parser_->get<std::string>("img2");
+        param.images[1]  = parser_->get<std::string>("img2");
     return param;
 }
 

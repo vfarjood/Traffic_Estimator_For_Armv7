@@ -1,6 +1,7 @@
-*** 2022-09-15 09:02:44 ***
+*** 2022-09-15 10:09:10 ***
 
-Traffic Status: LowNumber of cars: 7
+Traffic Status: Low
+Number of cars: 7
 Flow density: 4% 
 Flow average speed: 16
 Highest flow is in lane number: 3

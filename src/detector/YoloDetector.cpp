@@ -8,12 +8,14 @@ void YoloDetector::predict(std::vector<std::vector<Centroid>>& vector_of_centero
 
     // load yolo neural network model:
     cv::dnn::Net model = cv::dnn::readNetFromONNX(model_path);
+    LOG_TRACE("YoloDetector: Yolo model is loaded from: ", model_path );
 
     // Load class names:
     classes.reserve(5);
     std::ifstream ifs(std::string(classes_path).c_str());
     std::string line;
     while (getline(ifs, line)) {classes.push_back(line);} 
+    LOG_TRACE("YoloDetector: Yolo classes is loaded from: ", classes_path );
 
 	for (std::string const& file : input_files)
     {
@@ -31,6 +33,7 @@ void YoloDetector::predict(std::vector<std::vector<Centroid>>& vector_of_centero
         // forward pass through the model to carry out the detection:
         cv::Mat output;
         model.forward(output);
+        LOG_TRACE("YoloDetector: Forwarding pass is done for image: ", file);
 
 		std::vector<int> class_ids;
         std::vector<float> confidences;
@@ -75,6 +78,8 @@ void YoloDetector::predict(std::vector<std::vector<Centroid>>& vector_of_centero
             centroids.push_back(object);
         }
         vector_of_centeroids.push_back(centroids);
+        LOG_TRACE("YoloDetector: Post processing is finished for image: ", file);
+
     }
 
 }

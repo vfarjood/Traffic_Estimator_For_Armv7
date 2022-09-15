@@ -1,10 +1,9 @@
 #include "FileUtils.hpp"
 
 
-void FileUtils::save(std::vector<Centroid>& tracked_vehicles, const Result& result, const std::string& data_path)
+void FileUtils::save(std::vector<Centroid>& tracked_vehicles, const Result& result)
 {
-    std::string path = data_path + "../result/result.txt";
-    std::ofstream result_file (path);
+    std::ofstream result_file("../result/result.txt");
     if (!result_file.is_open()){
         std::cout << "Unable to open file";
     }
@@ -39,7 +38,7 @@ void FileUtils::save(std::vector<Centroid>& tracked_vehicles, const Result& resu
 }
 
 void FileUtils::drawResultOnImage(std::vector<std::string>& input_files, Lane& lines,
-                         std::vector<std::vector<Centroid>>& vector_of_centeroids, const std::string& data_path,
+                         std::vector<std::vector<Centroid>>& vector_of_centeroids, const std::string images[],
                             const float INPUT_WIDTH, const float INPUT_HEIGHT)
 {
     // std::default_random_engine generator;
@@ -51,8 +50,7 @@ void FileUtils::drawResultOnImage(std::vector<std::string>& input_files, Lane& l
     for(auto const& centroids: vector_of_centeroids)
     {    
         cv::Mat image = cv::imread(input_files[j], 1);
-        std::string name = "image-" + std::to_string(j+1) + ".jpg";
-        std::string path = data_path + "../result/" + name;
+        std::string path =  "../result/" + images[j];
 
         cv::resize(image, image, cv::Size(INPUT_WIDTH, INPUT_HEIGHT));
         for(int i = 0; i < centroids.size(); i++)
