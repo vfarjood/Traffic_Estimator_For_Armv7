@@ -10,5 +10,7 @@ struct Parameters {
     std::string mobilenet_config{"../models/mobilenet/ssd_mobilenet_v2_coco_2018_03_29.pbtxt"};
     std::string mobilenet_class{"../models/mobilenet/classes.txt"};
 
-    std::string data_path{"../media/dataset/road_1/"};
+    std::string data_path{"../media/dataset/road_1/low/"};
+    std::string img1{"img1.jpg"};
+    std::string img2{"img2.jpg"};
 };

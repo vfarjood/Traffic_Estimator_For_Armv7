@@ -1,9 +1,10 @@
 #include "FileUtils.hpp"
 
 
-void FileUtils::save(std::vector<Centroid>& tracked_vehicles, const Result& result)
+void FileUtils::save(std::vector<Centroid>& tracked_vehicles, const Result& result, const std::string& data_path)
 {
-    std::ofstream result_file ("../media/result/result.txt");
+    std::string path = data_path + "../result/result.txt";
+    std::ofstream result_file (path);
     if (!result_file.is_open()){
         std::cout << "Unable to open file";
     }
@@ -13,7 +14,7 @@ void FileUtils::save(std::vector<Centroid>& tracked_vehicles, const Result& resu
                 {return v1.lane_num < v2.lane_num;});
     Timer current;
     result_file << "*** "<< current.getCurrentTime() << " ***\n\n";
-    result_file << "Traffic Status: " << result.prediction;
+    result_file << "Traffic Status: " << result.prediction << "\n";
     result_file << "Number of cars: "  << tracked_vehicles.size() << "\n";
     result_file << "Flow density: "  << (int)result.density << "% \n";
     result_file << "Flow average speed: "  << (int)result.average_flow_speed << "\n";
@@ -38,7 +39,7 @@ void FileUtils::save(std::vector<Centroid>& tracked_vehicles, const Result& resu
 }
 
 void FileUtils::drawResultOnImage(std::vector<std::string>& input_files, Lane& lines,
-                         std::vector<std::vector<Centroid>>& vector_of_centeroids,
+                         std::vector<std::vector<Centroid>>& vector_of_centeroids, const std::string& data_path,
                             const float INPUT_WIDTH, const float INPUT_HEIGHT)
 {
     // std::default_random_engine generator;
@@ -51,7 +52,7 @@ void FileUtils::drawResultOnImage(std::vector<std::string>& input_files, Lane& l
     {    
         cv::Mat image = cv::imread(input_files[j], 1);
         std::string name = "image-" + std::to_string(j+1) + ".jpg";
-        std::string path = "../media/result/" + name;
+        std::string path = data_path + "../result/" + name;
 
         cv::resize(image, image, cv::Size(INPUT_WIDTH, INPUT_HEIGHT));
         for(int i = 0; i < centroids.size(); i++)

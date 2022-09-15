@@ -4,8 +4,10 @@
 CmdLineParser::CmdLineParser(int argc, char** argv) 
 {
     this->keys_ =
-        "{ input  i          | |      Image to process (absolute path to file)                          }"
-        "{ detector d       |yolo|   Model name [1:yolo, 2:mobilenet]                                   }"
+        "{ input  i          | |      path to data location where you have input images                 }"
+        "{ img1           |img1.jpg|  Image number 1 name (just name with extention)                    }"
+        "{ img2           |img2.jpg|  Image number 2 name (just name with extention)                    }"
+        "{ detector d       |yolo|    Model name [1:yolo, 2:mobilenet]                                   }"
         "{ model  m          | |      Model path contains trained weights.                              }"
         "{ config f          | |      Path to model's config parameters.                                }"
         "{ class  c          | |      Path to class file.                                               }"
@@ -36,8 +38,8 @@ CmdLineParser::CmdLineParser(int argc, char** argv)
 }
 Parameters CmdLineParser::getParameters(){
     Parameters param;
-    if(parser_->get<std::string>("name") != "")
-        param.model_name  = parser_->get<std::string>("name");
+    if(parser_->get<std::string>("detector") != "")
+        param.model_name  = parser_->get<std::string>("detector");
     if(parser_->get<std::string>("model") != "")
         param.yolo_model  = parser_->get<std::string>("model");
     if(parser_->get<std::string>("class") != "")
@@ -50,7 +52,10 @@ Parameters CmdLineParser::getParameters(){
         param.mobilenet_class  = parser_->get<std::string>("class");
     if(parser_->get<std::string>("input") != "")
         param.data_path  = parser_->get<std::string>("input");
-
+    if(parser_->get<std::string>("img1") != "")
+        param.img1  = parser_->get<std::string>("img1");
+    if(parser_->get<std::string>("img2") != "")
+        param.img2  = parser_->get<std::string>("img2");
     return param;
 }
 

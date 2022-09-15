@@ -1,3 +1,14 @@
+//***************************************************************************//
+//                                                                           //
+// @File Name:     main.cpp                                                  //
+// @Author:        Vahid Farjood Chafi                                       //
+// @Version:       0.0.1                                                     //
+// @Date:          13th September 2022                                       //
+// @Email:         vahid.farjood@gmail.com                                   //
+// @Description:   Traffic Estimator main file.                              //
+//                                                                           //
+//***************************************************************************//
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -33,7 +44,8 @@ int main(int argc, char** argv )
     
     
     // load input image list:
-    std::vector<std::string> input_files= {param.data_path + "img1.jpg", param.data_path + "img2.jpg"};
+    std::vector<std::string> input_files= {(param.data_path + param.img1),
+                                           (param.data_path + param.img2)};
     // keep all detected vehicles in a vector for both images:
     std::vector<std::vector<Centroid>> vector_of_vehicles; 
     vector_of_vehicles.reserve(50);
@@ -62,7 +74,7 @@ int main(int argc, char** argv )
 
     // Find Vehicles Trajectory:
     LOG_INFO("Main:          Tracking the vehicles:");
-    Lane lines(param.data_path + "lines.txt");
+    Lane lines(param.data_path + "../lines.txt");
     time.start();
     std::vector<Centroid> tracked_vehicles;
     cv::Size image_size = {INPUT_WIDTH, INPUT_HEIGHT};
@@ -88,8 +100,8 @@ int main(int argc, char** argv )
     std::cout << "    -Total         = " << std::fixed << std::setprecision(4)<< total_time.stop() << "s\n";
 
     // Write to result file:
-    FileUtils::save(tracked_vehicles, traffic);
-    FileUtils::drawResultOnImage(input_files, lines, vector_of_vehicles, INPUT_WIDTH, INPUT_HEIGHT);
+    FileUtils::save(tracked_vehicles, traffic, param.data_path);
+    FileUtils::drawResultOnImage(input_files, lines, vector_of_vehicles, param.data_path, INPUT_WIDTH, INPUT_HEIGHT);
 
     return 0;
 }
