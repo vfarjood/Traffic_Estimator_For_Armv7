@@ -88,20 +88,19 @@ int main(int argc, char** argv )
     LOG_INFO("Main: Estimating traffic:");
     time.start();
     TrafficEstimator estimator;
-    traffic = estimator.estimate(tracked_vehicles, lines, image_size);
+    estimator.estimate(tracked_vehicles, lines, image_size, traffic);
     traffic.estimation_time = time.stop();
-    LOG_TRACE("Main: Estimated Traffic is: ", traffic.prediction );
 
     // Write to result file:
     FileUtils::save(tracked_vehicles, traffic);
     FileUtils::drawResultOnImage(input_files, lines, vector_of_vehicles, param.images, INPUT_WIDTH, INPUT_HEIGHT);
-    LOG_TRACE("Main: Result is saved: ", "'result/result.txt'" );
+    LOG_TRACE("Main: Saved the result to: ", "'result/result.txt'" );
 
     std::cout << "Computation Time for " << input_files.size() << " frames:\n";
     std::cout << "    -Detection     = " << std::fixed << std::setprecision(4)<< traffic.detection_time << "s\n";
     std::cout << "    -Tracking      = " << std::fixed << std::setprecision(4)<< traffic.tracking_time << "s\n";
     std::cout << "    -Estimation    = " << std::fixed << std::setprecision(4)<< traffic.estimation_time << "s\n";
     std::cout << "    -Total         = " << std::fixed << std::setprecision(4)<< total_time.stop() << "s\n";
-    
+
     return 0;
 }

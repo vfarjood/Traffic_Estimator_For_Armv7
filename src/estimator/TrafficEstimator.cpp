@@ -1,10 +1,9 @@
 #include "TrafficEstimator.hpp"
 
 
-Result TrafficEstimator::estimate(const std::vector<Centroid>& vehicles, const Lane& lines, const cv::Size& image_size){
+void TrafficEstimator::estimate(const std::vector<Centroid>& vehicles,
+                                     const Lane& lines, const cv::Size& image_size, Result& prediction){
 	
-	Result prediction;
-
 	// Calculate average traffic flow speed:
     prediction.average_flow_speed = [&]() {
         float avg = 0;
@@ -51,8 +50,6 @@ Result TrafficEstimator::estimate(const std::vector<Centroid>& vehicles, const L
     else if (response == 3)
         result << "High";
     prediction.prediction = result.str();
-
-    return prediction;
 }
 
 float TrafficEstimator::densityEstimator(const std::vector<Centroid>& vehicles, const Lane& lines, const cv::Size& image_size){

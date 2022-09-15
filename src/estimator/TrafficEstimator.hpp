@@ -13,8 +13,8 @@
 
 class TrafficEstimator{
 public:
-	Result estimate(const std::vector<Centroid>& vehicles,
-						 const Lane& lines, const cv::Size& image_size);
+	void estimate(const std::vector<Centroid>& vehicles,
+						 const Lane& lines, const cv::Size& image_size, Result& prediction);
 
 private:
 	static float densityEstimator(const std::vector<Centroid>& vehicles,
