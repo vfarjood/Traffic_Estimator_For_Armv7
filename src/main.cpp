@@ -29,20 +29,18 @@ constexpr int INPUT_HEIGHT = 640;
 
 int main(int argc, char** argv )
 {
-    LOG_INFO("Main:          Program has started.");
-    Timer total_time;
-    total_time.start();
-
-    
     CmdLineParser parser(argc, argv);
-    Parameters param;
-    param = parser.getParameters();
-
     LOG_UPDATE_CONFIGURE(parser.get<std::string>("logMode"),
                             parser.get<std::string>("logType"),
                                 parser.get<std::string>("logLevel")); 
+    LOG_INFO("Main: Program started..");
+
+    Timer total_time;
+    total_time.start();
     
-    
+    Parameters param;
+    param = parser.getParameters();
+
     // load input image list:
     std::vector<std::string> input_files= {(param.data_path + param.images[0]),
                                            (param.data_path + param.images[1])};
@@ -54,15 +52,15 @@ int main(int argc, char** argv )
     Result traffic;
     Timer time;
     time.start();
-    LOG_INFO("Main:          Detecting vehicles:");
+    LOG_INFO("Main: Detecting vehicles:");
     if(param.model_name == "yolo"){
-        LOG_INFO("Main:          YOLOv5n model is selected as object detector.");
+        LOG_INFO("Main: YOLOv5n model is selected as object detector.");
         YoloDetector detector;
         detector.predict(vector_of_vehicles, param.yolo_model, param.yolo_class, 
                             input_files, INPUT_WIDTH, INPUT_HEIGHT);
     } 
     else if(param.model_name == "mobilenet"){
-        LOG_INFO("Main:          MobilNet_SSDv2 model is selected as object detector.");
+        LOG_INFO("Main: MobilNet_SSDv2 model is selected as object detector.");
         MobilenetDetector detector;
         detector.predict(vector_of_vehicles, param.mobilenet_model, param.mobilenet_config, param.mobilenet_class, 
                             input_files, INPUT_WIDTH, INPUT_HEIGHT);
