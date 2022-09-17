@@ -37,7 +37,7 @@ int main(int argc, char** argv )
 
     Timer total_time;
     total_time.start();
-    
+
     Parameters param;
     param = parser.getParameters();
 
@@ -90,9 +90,12 @@ int main(int argc, char** argv )
     traffic.estimation_time = time.stop();
 
     // Write to result file:
+    time.start();
     FileUtils::save(tracked_vehicles, traffic);
     FileUtils::drawResultOnImage(input_files, lines, vector_of_vehicles, param.images, INPUT_WIDTH, INPUT_HEIGHT);
+    traffic.saving_time = time.stop();
     LOG_TRACE("Main: Saved the result to: ", "'result/result.txt'" );
+    LOG_TRACE("Main: Saving time: ", traffic.saving_time );
 
     std::cout << "Computation Time for " << input_files.size() << " frames:\n";
     std::cout << "    -Detection     = " << std::fixed << std::setprecision(4)<< traffic.detection_time << "s\n";

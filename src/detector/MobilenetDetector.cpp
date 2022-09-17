@@ -7,20 +7,32 @@ void MobilenetDetector::predict(std::vector<std::vector<Centroid>>& vector_of_ce
 								                std::vector<std::string>& input_files, 
 										          const float INPUT_WIDTH, const float INPUT_HEIGHT){
     // load yolo neural network model:
+    Timer time;
+    time.start();
     cv::dnn::Net model = cv::dnn::readNetFromTensorflow(model_path, model_config);
+    LOG_TRACE("MobileNet: MobileNet_SSD model is loaded from: ", model_path );
+    LOG_TRACE("MobileNet: MobileNet_SSD model is loaded from: ", time.stop() );
 
     // Load class names:
     classes.reserve(5);
     std::ifstream ifs(std::string(classes_path).c_str());
     std::string line;
     while (getline(ifs, line)) {classes.push_back(line);} 
+    LOG_TRACE("MobileNet: MobileNet_SSD classes is loaded from: ", classes_path );
 
+
+    float imageTime = 0.0f;
+    float detectioTime = 0.0f;
 	for (std::string const& file : input_files)
     {
         // Load the image:
+        Timer time;
+        time.start();
         cv::Mat image = cv::imread(file, 1);
         cv::resize (image, image, cv::Size(INPUT_WIDTH, INPUT_HEIGHT));
-        
+        imageTime += time.stop();
+
+        time.start();
         // create blob from image:
         cv::Mat input = cv::dnn::blobFromImage(image, 1.0, cv::Size(INPUT_WIDTH, INPUT_HEIGHT), cv::Scalar(127.5, 127.5, 127.5), true, false);
     
@@ -29,6 +41,7 @@ void MobilenetDetector::predict(std::vector<std::vector<Centroid>>& vector_of_ce
     
         // forward pass through the model to carry out the detection:
         cv::Mat output = model.forward();
+        LOG_TRACE("MobileNet: Forwarding pass is done for image: ", file);
         
         std::vector<Centroid> centroids;
         centroids.reserve(5);
@@ -56,5 +69,9 @@ void MobilenetDetector::predict(std::vector<std::vector<Centroid>>& vector_of_ce
             }
         }
         vector_of_centeroids.push_back(centroids);
+        LOG_TRACE("MobileNet_SSD: Post processing is finished for image: ", file);
+        detectioTime += time.stop();
     }
+    LOG_TRACE("MobileNet_SSD: Image Loading time: ", imageTime);
+    LOG_TRACE("MobileNet_SSD: Model detection time: ", detectioTime);
 }

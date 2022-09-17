@@ -63,7 +63,25 @@ void FileUtils::drawResultOnImage(std::vector<std::string>& input_files, Lane& l
             cv::putText(image, label, cv::Point(centroids[i].box.x, centroids[i].box.y-5), cv::FONT_HERSHEY_SIMPLEX, 0.5, color, 1);
         }
         lines.draw(image);
+        // drawGrid(image, lines);
         cv::imwrite(path, image);
         ++j;
     }
+}
+
+void FileUtils::drawGrid(cv::Mat &image, Lane& lines_vector)
+{
+    cv::LineIterator left_it(image.size(), lines_vector.line.front().first, lines_vector.line.front().second, 8);
+    cv::LineIterator right_it(image.size(), lines_vector.line.back().first, lines_vector.line.back().second, 8);
+
+    for(int i = 0; i < left_it.count; i++, left_it++, right_it++)
+    {
+        if((i%8) == 0)
+        {
+            cv::Point left= left_it.pos();
+            cv::Point right= right_it.pos();
+            cv::line(image, cv::Point(left.x, left.y), cv::Point(right.x, right.y), cv::Scalar(173.0, 255.0, 47.0), 2);
+        }
+    }
+
 }

@@ -21,4 +21,6 @@ public:
                                     std::vector<std::vector<Centroid>>& vector_of_centeroids, 
                                        const std::string images[],
                                           const float INPUT_WIDTH, const float INPUT_HEIGHT);
+private:
+   static void drawGrid(cv::Mat &image, Lane& lines_vector);
 };

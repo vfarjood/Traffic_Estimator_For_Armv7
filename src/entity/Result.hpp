@@ -10,4 +10,5 @@ struct Result {
     float detection_time = 0.0f;
     float tracking_time = 0.0f;
     float estimation_time = 0.0f;
+    float saving_time = 0.0f;
 };

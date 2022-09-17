@@ -8,6 +8,8 @@
 #include <opencv2/dnn.hpp>
 #include <opencv2/dnn/all_layers.hpp>
 #include "../entity/Vehicle.hpp"
+#include "../utils/Log.hpp"
+#include "../utils/Timer.hpp"
 
 class MobilenetDetector
 {
