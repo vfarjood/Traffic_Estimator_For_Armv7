@@ -1,3 +1,0 @@
-/Users/vahidfarjoodchafi/Desktop/C++/project/Computer-Vision/ARM/Classifier/build/CMakeFiles/svm.dir
-/Users/vahidfarjoodchafi/Desktop/C++/project/Computer-Vision/ARM/Classifier/build/CMakeFiles/edit_cache.dir
-/Users/vahidfarjoodchafi/Desktop/C++/project/Computer-Vision/ARM/Classifier/build/CMakeFiles/rebuild_cache.dir

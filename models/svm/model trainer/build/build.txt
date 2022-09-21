@@ -1,0 +1,4 @@
+Build the project by running:
+
+-> cmake ..
+-> make
