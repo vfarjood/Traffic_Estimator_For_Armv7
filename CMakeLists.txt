@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 message("CMAKE_CXX_STANDARD = ${CMAKE_CXX_STANDARD}")
 
 project(estimator)
