@@ -11,7 +11,7 @@ void YoloDetector::predict(std::vector<std::vector<Centroid>>& vector_of_centero
     time.start();
     cv::dnn::Net model = cv::dnn::readNetFromONNX(model_path);
     LOG_TRACE("YoloDetector: Yolo model is loaded from: ", model_path );
-    LOG_TRACE("YoloDetector: Yolo model is loaded from: ", time.stop() );
+    LOG_TRACE("YoloDetector: Model loading: ", time.stop() );
 
     // Load class names:
     classes.reserve(5);

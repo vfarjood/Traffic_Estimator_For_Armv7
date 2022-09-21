@@ -80,7 +80,7 @@ int main(int argc, char** argv )
     VehicleTracker tracker;
     tracker.track(vector_of_vehicles, tracked_vehicles, lines, image_size);
     traffic.tracking_time = time.stop();
-    
+    LOG_TRACE("Main: Tracking time: ", traffic.tracking_time );
 
     // Traffic estimation:
     LOG_INFO("Main: Estimating traffic:");
@@ -88,6 +88,7 @@ int main(int argc, char** argv )
     TrafficEstimator estimator;
     estimator.estimate(tracked_vehicles, lines, image_size, traffic);
     traffic.estimation_time = time.stop();
+    LOG_TRACE("Main: Estimation time: ", traffic.estimation_time );
 
     // Write to result file:
     time.start();
@@ -97,7 +98,15 @@ int main(int argc, char** argv )
     LOG_TRACE("Main: Saved the result to: ", "'result/result.txt'" );
     LOG_TRACE("Main: Saving time: ", traffic.saving_time );
 
-    std::cout << "Computation Time for " << input_files.size() << " frames:\n";
+
+    std::cout << "\nComputation for " << input_files.size() << " frames:\n";
+    std::cout << "    -Traffic Status: " << traffic.prediction << "\n";
+    std::cout << "    -Number of cars: "  << tracked_vehicles.size() << "\n";
+    std::cout << "    -Flow density: "  << (int)traffic.density << "% \n";
+    std::cout << "    -Flow average speed: "  << (int)traffic.average_flow_speed << "\n";
+    std::cout << "    -Highest flow is in lane number: "  << traffic.highest_lane_flow << "\n\n";
+
+    std::cout << "Computation Time" << "\n";
     std::cout << "    -Detection     = " << std::fixed << std::setprecision(4)<< traffic.detection_time << "s\n";
     std::cout << "    -Tracking      = " << std::fixed << std::setprecision(4)<< traffic.tracking_time << "s\n";
     std::cout << "    -Estimation    = " << std::fixed << std::setprecision(4)<< traffic.estimation_time << "s\n";

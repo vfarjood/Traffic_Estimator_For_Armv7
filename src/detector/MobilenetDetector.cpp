@@ -11,7 +11,7 @@ void MobilenetDetector::predict(std::vector<std::vector<Centroid>>& vector_of_ce
     time.start();
     cv::dnn::Net model = cv::dnn::readNetFromTensorflow(model_path, model_config);
     LOG_TRACE("MobileNet: MobileNet_SSD model is loaded from: ", model_path );
-    LOG_TRACE("MobileNet: MobileNet_SSD model is loaded from: ", time.stop() );
+    LOG_TRACE("MobileNet: Model loading:: ", time.stop() );
 
     // Load class names:
     classes.reserve(5);
@@ -34,7 +34,7 @@ void MobilenetDetector::predict(std::vector<std::vector<Centroid>>& vector_of_ce
 
         time.start();
         // create blob from image:
-        cv::Mat input = cv::dnn::blobFromImage(image, 1.0, cv::Size(300, 300), cv::Scalar(127.5, 127.5, 127.5), true, false);
+        cv::Mat input = cv::dnn::blobFromImage(image, 1.0, cv::Size(INPUT_WIDTH, INPUT_HEIGHT), cv::Scalar(127.5, 127.5, 127.5), true, false);
     
         // set the blob to the model:
         model.setInput(input);
