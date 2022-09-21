@@ -24,7 +24,7 @@ private:
 
     const float SCORE_THRESHOLD = 0.2;
     const float NMS_THRESHOLD = 0.5;
-    const float CONFIDENCE_THRESHOLD = 0.5;
+    const float CONFIDENCE_THRESHOLD = 0.6;
 
     std::vector<std::string> classes;
 };
