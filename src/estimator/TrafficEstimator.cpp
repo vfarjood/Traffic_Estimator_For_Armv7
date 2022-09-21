@@ -40,6 +40,8 @@ void TrafficEstimator::estimate(const std::vector<Centroid>& vehicles,
     std::stringstream result;
 
     cv::Ptr<cv::ml::SVM> svm = cv::ml::SVM::load("../models/svm/svm_model.xml");
+    LOG_TRACE("Estimator: Svm model is loaded from: ", "../models/svm/svm_model.xml");
+
     float input[1][3] = {static_cast<float>(vehicles.size()), prediction.density, prediction.average_flow_speed};
     cv::Mat inputMat(1, 3, CV_32F, input);
     float response = svm->predict(inputMat);

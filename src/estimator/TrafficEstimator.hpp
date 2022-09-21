@@ -4,6 +4,7 @@
 #include "../utils/Lane.hpp"
 #include "../entity/Vehicle.hpp"
 #include "../entity/Result.hpp"
+#include "../utils/Log.hpp"
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/dnn.hpp>
