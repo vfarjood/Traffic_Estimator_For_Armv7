@@ -11,7 +11,7 @@ void MobilenetDetector::predict(std::vector<std::vector<Centroid>>& vector_of_ce
     time.start();
     cv::dnn::Net model = cv::dnn::readNetFromTensorflow(model_path, model_config);
     LOG_TRACE("MobileNet: MobileNet_SSD model is loaded from: ", model_path );
-    LOG_TRACE("MobileNet: Model loading:: ", time.stop() );
+    LOG_TRACE("MobileNet: Model loading time: ", time.stop() );
 
     // Load class names:
     classes.reserve(5);
